@@ -137,9 +137,8 @@ export function LoginForm({
                   <div className="flex items-center">
                     <Label htmlFor="confirm-password">Confirm Password</Label>
                   </div>
-                  <Input value={formData.passwordConfirm} onChange={(e) => setFormData({...formData, passwordConfirm: e.target.value})} id="confirm-password" type="confirm-password" required />
+                  <Input value={formData.passwordConfirm} onChange={(e) => setFormData({...formData, passwordConfirm: e.target.value})} type="password" id="confirm-password" required />
                 </div>
-                
                 <Button type="submit" onClick={handleRegister} className="w-full cursor-pointer">
                   Create Account
                 </Button>
