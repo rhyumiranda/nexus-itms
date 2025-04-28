@@ -8,12 +8,25 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { pb } from "@/lib/utils"
+import { useEffect, useState } from "react"
 
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"form">) {
+
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  })
+
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    console.log("Email: ", formData.email);
+    console.log("Password: ", formData.password);
+  }, [formData])
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,7 +37,7 @@ export function LoginForm({
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email: 'mirandarhyu@gmail.com', password: "Rhyuchang06@" }),
+        body: JSON.stringify({ email: formData.email, password: formData.password }),
       });
 
       const data = await response.json();
@@ -32,10 +45,10 @@ export function LoginForm({
       if ( data.success ) {
         window.location.href = '/dashboard';
       } else {
-        console.error('Login failed: ', data.error );
+        console.log('Login failed: ', data.error );
       }
     } catch ( error ) {
-      console.error('Login request failed:',  error );
+      console.log('Login request failed:',  error );
     }
   }
 
@@ -61,7 +74,7 @@ export function LoginForm({
       <div className="grid gap-6">
         <div className="grid gap-3">
           <Label htmlFor="email">Email</Label>
-          <Input id="email" name="email" type="email" placeholder="m@example.com" required />
+          <Input value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} id="email" name="email" type="email" placeholder="m@example.com" required autoFocus/>
         </div>
         <div className="grid gap-3">
           <div className="flex items-center">
@@ -73,7 +86,7 @@ export function LoginForm({
               Forgot your password?
             </a>
           </div>
-          <Input id="password" name="password" type="password" required />
+          <Input value={formData.password} onChange={(e) => setFormData({...formData, password: e.target.value})} id="password" name="password" type="password" required />
         </div>
         <Button type="submit" onClick={handleLogin} className="w-full">
           Login
