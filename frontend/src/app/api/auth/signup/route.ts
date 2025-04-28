@@ -6,7 +6,7 @@ export async function POST( request: NextRequest ) {
   const { email, password, passwordConfirm, firstName, lastName } = await request.json();
 
   try {
-    const authData = await pb.collection( 'users' ).create({
+    const createUser = await pb.collection( 'users' ).create({
       email,
       emailVisibility: true,
       firstName,
@@ -14,6 +14,8 @@ export async function POST( request: NextRequest ) {
       password,
       passwordConfirm
     });
+
+    const authData = await pb.collection( 'users' ).authWithPassword( email, password );
 
     const response = NextResponse.json({
       success: true,
@@ -30,6 +32,10 @@ export async function POST( request: NextRequest ) {
 
     return response;
   } catch ( error ) {
-  
+    console.log(error);
+    return NextResponse.json(
+      { success: false, error: 'Invalid credentials' },
+      { status: 401 }
+    ); 
   }
 }
