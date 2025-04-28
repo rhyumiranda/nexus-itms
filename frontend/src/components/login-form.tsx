@@ -30,6 +30,7 @@ export function LoginForm({
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError(null);
 
     try {
       const response = await fetch('/api/auth/login', {
@@ -45,10 +46,11 @@ export function LoginForm({
       if ( data.success ) {
         window.location.href = '/dashboard';
       } else {
-        console.log('Login failed: ', data.error );
+        setError(data.error || 'Hmm... those details don’t match. Try again!');  
       }
     } catch ( error ) {
-      console.log('Login request failed:',  error );
+      setError('Login failed. Please try again later.');
+      console.error('Login request failed:', error);
     }
   }
 
@@ -71,6 +73,11 @@ export function LoginForm({
           Enter your email below to login to your account
         </p>
       </div>
+      {error && (
+        <div className="p-3 text-sm bg-red-50 border border-red-200 text-red-600 rounded-md">
+          {error}
+        </div>
+      )}
       <div className="grid gap-6">
         <div className="grid gap-3">
           <Label htmlFor="email">Email</Label>
