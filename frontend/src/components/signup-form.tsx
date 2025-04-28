@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useState, useEffect } from "react"
 import { pb } from "@/lib/utils"
+import { signupSchema } from "@/schemas/signupSchema"
 
 export function LoginForm({
   className,
@@ -27,8 +28,12 @@ export function LoginForm({
     passwordConfirm: ''
   })
 
+  const [ error, setError ] = useState<string | null>(null);
+
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const result = signupSchema.safeParse(formData);
 
     try {
       const response = await fetch('/api/auth/signup', {
@@ -44,15 +49,17 @@ export function LoginForm({
           password: formData.password,
           passwordConfirm: formData.passwordConfirm
         })
-      })
-      // const authData = await pb.collection( 'users' ).create({
-      //   email: formData.email,
-      //   emailVisibility: true,
-      //   firstName: formData.firstName,
-      //   lastName: formData.lastName,
-      //   password: formData.password,
-      //   passwordConfirm: formData.passwordConfirm
-      // });
+      });
+
+      if (response.ok) {
+        window.location.href = '/dashboard';
+      } else {
+        const errorMessage = result.error?.errors.map((error) => error.message).join('\n');
+        setError(errorMessage || null);
+        return;
+      }
+
+      
     } catch (error) {
       console.log(error);
     }
@@ -139,6 +146,7 @@ export function LoginForm({
                   </div>
                   <Input value={formData.passwordConfirm} onChange={(e) => setFormData({...formData, passwordConfirm: e.target.value})} type="password" id="confirm-password" required />
                 </div>
+                {error && <p className="text-red-500 text-sm">{error}</p>}
                 <Button type="submit" onClick={handleRegister} className="w-full cursor-pointer">
                   Create Account
                 </Button>
