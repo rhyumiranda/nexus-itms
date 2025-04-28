@@ -16,13 +16,17 @@ export function middleware(req: NextRequest) {
   }
   
   // Case 2: User tries to access login/signup pages while already authenticated
-  if (req.nextUrl.pathname.startsWith('/auth/')) {
-    if (isAuthenticated) {
+  if (isAuthenticated) {
+    if (req.nextUrl.pathname.startsWith('/auth/') ||
+        req.nextUrl.pathname === '/' ||
+        req.nextUrl.pathname.startsWith('/signup') ||
+        req.nextUrl.pathname.startsWith('/login')) {
       console.log('Redirecting to dasboard');
       const dashboardUrl = new URL('/dashboard', req.url);
       return NextResponse.redirect(dashboardUrl);
     }
   }
+  
   
   return NextResponse.next();
 }
