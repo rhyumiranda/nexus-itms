@@ -6,6 +6,7 @@ export async function POST( request: NextRequest ) {
   const { email, password, passwordConfirm, firstName, lastName } = await request.json();
 
   try {
+
     const createUser = await pb.collection( 'users' ).create({
       email,
       emailVisibility: true,
@@ -15,11 +16,9 @@ export async function POST( request: NextRequest ) {
       passwordConfirm
     });
 
-    const authData = await pb.collection( 'users' ).authWithPassword( email, password );
-
     const response = NextResponse.json({
       success: true,
-      user: authData.record,
+      user: createUser.record,
     });
 
     response.cookies.set( 'pb_auth', pb.authStore.token, {
