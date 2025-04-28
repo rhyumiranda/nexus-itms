@@ -1,3 +1,5 @@
+"use client"
+
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
@@ -9,11 +11,53 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { useState, useEffect } from "react"
+import { pb } from "@/lib/utils"
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+
+  const [ formData, setFormData ] = useState({
+    email: '',
+    firstName: '',
+    lastName: '',
+    password: '',
+    passwordConfirm: ''
+  })
+
+  const handleRegister = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch('/api/auth/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: formData.email,
+          emailVisibility: true,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          password: formData.password,
+          passwordConfirm: formData.passwordConfirm
+        })
+      })
+      // const authData = await pb.collection( 'users' ).create({
+      //   email: formData.email,
+      //   emailVisibility: true,
+      //   firstName: formData.firstName,
+      //   lastName: formData.lastName,
+      //   password: formData.password,
+      //   passwordConfirm: formData.passwordConfirm
+      // });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
@@ -55,9 +99,31 @@ export function LoginForm({
                 <div className="grid gap-3">
                   <Label htmlFor="email">Email</Label>
                   <Input
+                    value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})}
                     id="email"
                     type="email"
                     placeholder="m@example.com"
+                    autoFocus
+                    required
+                  />
+                </div>
+                <div className="grid gap-3">
+                  <Label htmlFor="first-name">First Name</Label>
+                  <Input
+                    value={formData.firstName} onChange={(e) => setFormData({...formData, firstName: e.target.value})}
+                    id="first-name"
+                    type="text"
+                    placeholder="John"
+                    required
+                  />
+                </div>
+                <div className="grid gap-3">
+                  <Label htmlFor="last-name">Last Name</Label>
+                  <Input
+                    value={formData.lastName} onChange={(e) => setFormData({...formData, lastName: e.target.value})}
+                    id="last-name"
+                    type="text"
+                    placeholder="Doe"
                     required
                   />
                 </div>
@@ -65,16 +131,16 @@ export function LoginForm({
                   <div className="flex items-center">
                     <Label htmlFor="password">Password</Label>
                   </div>
-                  <Input id="password" type="password" required />
+                  <Input value={formData.password} onChange={(e) => setFormData({...formData, password: e.target.value})} id="password" type="password" required />
                 </div>
                 <div className="grid gap-3">
                   <div className="flex items-center">
                     <Label htmlFor="confirm-password">Confirm Password</Label>
                   </div>
-                  <Input id="confirm-password" type="confirm-password" required />
+                  <Input value={formData.passwordConfirm} onChange={(e) => setFormData({...formData, passwordConfirm: e.target.value})} id="confirm-password" type="confirm-password" required />
                 </div>
                 
-                <Button type="submit" className="w-full cursor-pointer">
+                <Button type="submit" onClick={handleRegister} className="w-full cursor-pointer">
                   Create Account
                 </Button>
               </div>
