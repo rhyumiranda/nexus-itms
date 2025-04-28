@@ -12,7 +12,6 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useState, useEffect } from "react"
-import { pb } from "@/lib/utils"
 import { signupSchema } from "@/schemas/signupSchema"
 
 export function LoginForm({
@@ -32,6 +31,7 @@ export function LoginForm({
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError(null);
 
     const result = signupSchema.safeParse(formData);
 
@@ -51,16 +51,18 @@ export function LoginForm({
         })
       });
 
-      if (response.ok) {
-        window.location.href = '/dashboard';
+      const data = await response.json();
+
+      if (data.success) {
+        window.location.href = '/auth/login';
       } else {
         const errorMessage = result.error?.errors.map((error) => error.message).join('\n');
-        setError(errorMessage || null);
+        setError(errorMessage || "Whoops! That email’s already in use. Got another?" || "Failed to create account. Please try again.");
         return;
       }
 
-      
     } catch (error) {
+      setError("An error occurred. Please try again.");
       console.log(error);
     }
   }
@@ -75,7 +77,7 @@ export function LoginForm({
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
+          <form onSubmit={handleRegister}>
             <div className="grid gap-6">
               <div className="flex flex-col gap-4">
                 <Button variant="outline" className="w-full cursor-pointer">
@@ -147,7 +149,7 @@ export function LoginForm({
                   <Input value={formData.passwordConfirm} onChange={(e) => setFormData({...formData, passwordConfirm: e.target.value})} type="password" id="confirm-password" required />
                 </div>
                 {error && <p className="text-red-500 text-sm">{error}</p>}
-                <Button type="submit" onClick={handleRegister} className="w-full cursor-pointer">
+                <Button type="submit" className="w-full cursor-pointer">
                   Create Account
                 </Button>
               </div>
