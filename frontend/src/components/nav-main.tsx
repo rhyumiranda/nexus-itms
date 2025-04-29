@@ -10,14 +10,8 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog" 
+import CreateModal from "./create-modal"
+
 
 export function NavMain({
   items,
@@ -37,22 +31,7 @@ export function NavMain({
               tooltip="Quick Create"
               className="bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground active:bg-primary/90 active:text-primary-foreground min-w-8 duration-200 ease-linear"
             >
-              <Dialog>
-                <DialogTrigger asChild>
-                  <div className="flex items-center gap-2">
-                    <IconCirclePlusFilled />
-                    <Button className="bg-transparent hover:bg-transparent">Quick Create</Button>
-                  </div>
-                </DialogTrigger>
-                <DialogContent>
-                  <DialogHeader>
-                    <DialogTitle> Create New Task </DialogTitle>
-                    <DialogDescription> This is the description. </DialogDescription>
-                  </DialogHeader>
-                </DialogContent>
-              </Dialog>
-              
-              {/* <span>Quick Create</span> */}
+              <CreateModal/>
             </SidebarMenuButton>
             <Button
               size="icon"
