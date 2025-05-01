@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { pb } from "@/lib/utils";
+import { useAuthStore } from "@/stores/useAuthStore";
+import { use } from "react";
 
 
 export async function POST( request: NextRequest ) {
@@ -14,7 +16,7 @@ export async function POST( request: NextRequest ) {
     });
 
     response.cookies.set( 'pb_auth', pb.authStore.token, {
-      httpOnly: true,
+      httpOnly: false,
       secure: true,
       sameSite: 'strict',
       path: '/',
@@ -22,25 +24,25 @@ export async function POST( request: NextRequest ) {
     });
 
     response.cookies.set( 'pb_user_id', pb.authStore.record?.id ?? '', {
-      httpOnly: true,
-      secure: true,
-      sameSite: 'strict',
+      httpOnly: false,
+      secure: false,
+      sameSite: 'lax',
       path: '/',
       maxAge: 60 * 60 * 24 * 7,
     })
 
     response.cookies.set('pb_user_fn', (pb.authStore.record?.firstName ?? '').trim(), {
-      httpOnly: true,
-      secure: true,
-      sameSite: 'strict',
+      httpOnly: false,
+      secure: false,
+      sameSite: 'lax',
       path: '/',
       maxAge: 60 * 60 * 24 * 7,
     })
 
     response.cookies.set( 'pb_user_ln', pb.authStore.record?.lastName ?? '', {
-      httpOnly: true,
-      secure: true,
-      sameSite: 'strict',
+      httpOnly: false,
+      secure: false,
+      sameSite: 'lax',
       path: '/',
       maxAge: 60 * 60 * 24 * 7,
     })
