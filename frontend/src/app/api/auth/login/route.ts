@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { pb } from "@/lib/utils";
-import { useAuthStore } from "@/stores/useAuthStore";
-import { use } from "react";
 
 
 export async function POST( request: NextRequest ) {
