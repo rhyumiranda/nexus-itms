@@ -8,9 +8,47 @@ import {
   SidebarProvider,
 } from "@/components/ui/sidebar"
 
+import { Button } from "@/components/ui/button"
 import data from "./data.json"
 
-export default function Page() {
+export default async function Page() {
+  
+  const handleFetch = async (e: MouseEvent) => {
+    e.preventDefault();
+    console.log("Fetch data");
+  }
+
+  // try {
+  //   const response = await fetch('http://localhost:3000/api/records/tasks/read', {
+  //     method: 'GET',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //   }});
+
+  //   console.log("Response: ", response);
+
+  //   if (!response.ok) {
+  //     throw new Error(`API error: ${response.status}`);
+  //   }
+
+  //   const data = await response.json();
+  //   if (data.success && data.tasks) {
+  //     tableData = data.tasks.map(task => ({
+  //       id: parseInt(task.id) || Math.floor(Math.random() * 10000), // Convert string ID to number or generate random
+  //       header: task.title || 'Untitled Task',
+  //       type: task.type || 'Task',
+  //       status: task.status || 'Not Started',
+  //       target: task.target || '--',
+  //       limit: task.deadline || '--',
+  //       reviewer: task.assigned_to || 'Assign reviewer'
+  //     }));
+  //   }
+
+  //   console.log("Table Data: ", tableData);
+  // } catch (error) {
+  //   console.log(error);
+  // }
+
   return (
     <SidebarProvider
       style={
@@ -30,6 +68,7 @@ export default function Page() {
               <div className="px-4 lg:px-6">
                 <ChartAreaInteractive />
               </div>
+              
               <DataTable data={data} />
             </div>
           </div>
