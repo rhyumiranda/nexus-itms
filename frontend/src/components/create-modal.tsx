@@ -1,4 +1,5 @@
-import { useState } from 'react'
+"use client"
+import { useEffect, useState } from 'react'
 import {format, addDays} from 'date-fns'
 
 import {
@@ -28,11 +29,98 @@ import {
 } from "@/components/ui/popover"
 import { cn } from '@/lib/utils'
 import { Calendar } from './ui/calendar'
+import { pb } from '@/lib/utils'
 
 
 export default function CreateModal() {
 
+  const [formData, setFormData] = useState({
+    title: '',
+    description: '',
+    'status': '',
+    'priority': '',
+    'deadline': ''
+  });
+
+  useEffect(() => {
+    console.log("Title: ", formData.title);
+    console.log("Description: ", formData.description);
+    console.log("Status: ", formData.status);
+    console.log("Priority: ", formData.priority);
+    console.log("Deadline: ", formData.deadline);
+  }, [formData])
+
   const [date, setDate] = useState<Date | undefined>(undefined);
+
+  const handleCreateTask = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    console.log("Auth store:", pb.authStore);
+    console.log("Auth model:", pb.authStore.model);
+    console.log("Auth token:", pb.authStore.token);
+    
+    const userId = pb.authStore.model?.id;
+    console.log("User ID from auth:", userId);
+
+    try {
+      
+    } catch (error: unknown) {
+      console.error("PocketBase error:", error);
+      if (error && typeof error === 'object' && 'response' in error) {
+        console.error("Response data:", (error as any).response.data);
+      }
+    }
+
+    const taskData = {
+      title: formData.title || "Untitled Task", // Provide fallbacks
+      description: formData.description || "",
+      status: formData.status || "Not started",
+      priority: formData.priority || "Low",
+      deadline: formData.deadline || new Date().toISOString(),
+      user: "o9c72mnm42cyu37" // Make sure this field matches your PocketBase schema
+    };
+
+    console.log("Sending to PocketBase:", taskData);
+
+    const record = await pb.collection('tasks').create(taskData);
+    console.log("Task created successfully:", record);
+
+    setFormData({
+      title: '',
+      description: '',
+      status: '',
+      priority: '',
+      deadline: ''
+    });
+
+    setDate(undefined);
+
+    // try {
+    //   const response = await fetch('/api/records/tasks/create', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({
+    //       title: formData.title,
+    //       description: formData.description,
+    //       status: formData.status,
+    //       priority: formData.priority,
+    //       deadline: formData.deadline
+    //     })
+    //   });
+
+    //   const data = await response.json();
+
+    //   if (data.success) {
+    //     window.location.reload();
+    //   } else {
+    //     console.log(data.error);
+    //   }
+    // } catch (error) {
+    //   console.log('Failed to create task:', error);
+    // }
+  }
 
   return (
     <Dialog>
@@ -46,33 +134,33 @@ export default function CreateModal() {
         <DialogHeader>
           <DialogTitle> Create New Task </DialogTitle>
           <DialogDescription> This is the description. </DialogDescription>
-          <form>
+          <form onSubmit={handleCreateTask} className="grid gap-4">
             <div className="grid gap-6 text-left">
               <div className="grid gap-3">
                 <label htmlFor="task-title">Title</label>
-                <Input type="text" required autoFocus/>
+                <Input value={formData.title} onChange={(e) => setFormData({...formData, title: e.target.value})}  type="text" required autoFocus/>
               </div>
               <div className='grid gap-3'>
                 <label htmlFor="">Description</label>
-                <Textarea required/>
+                <Textarea value={formData.description} onChange={(e) => setFormData({...formData, description: e.target.value})}/>
               </div>
               <div className='grid grid-cols-2 gap-3'>
                 <div className='grid gap-3'>
                   <label htmlFor="task-status">Status</label>
-                  <Select>
+                  <Select value={formData.status} onValueChange={(value) => setFormData({...formData, status: value})}>
                     <SelectTrigger className="w-full max-w-[250px]">
                       <SelectValue placeholder="Theme" />
                     </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="Not-started">Not started</SelectItem>
-                        <SelectItem value="In-Progress">In Progress</SelectItem>
+                    <SelectContent >
+                      <SelectItem value="Not started">Not started</SelectItem>
+                        <SelectItem value="In Progress">In Progress</SelectItem>
                       <SelectItem value="Complete">Complete</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 <div className='grid gap-3'>
                   <label htmlFor="task-status">Priority</label>
-                  <Select>
+                  <Select value={formData.priority} onValueChange={(value) => setFormData({...formData, priority: value})}>
                     <SelectTrigger className="w-full max-w-[250px]">
                       <SelectValue placeholder="Theme" />
                     </SelectTrigger>
@@ -105,9 +193,12 @@ export default function CreateModal() {
                     className="flex w-auto flex-col space-y-2 p-2"
                   >
                     <Select
-                      onValueChange={(value) =>
-                        setDate(addDays(new Date(), parseInt(value)))
-                      }
+                      value={formData.deadline}
+                      onValueChange={(value) => {
+                        const newDate = addDays(new Date(), parseInt(value));
+                        setDate(newDate);
+                        setFormData(prev => ({...prev, deadline: newDate.toISOString()}));
+                      }}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select" />
@@ -120,7 +211,19 @@ export default function CreateModal() {
                       </SelectContent>
                     </Select>
                     <div className="rounded-md border">
-                      <Calendar mode="single" selected={date} onSelect={setDate} />
+                    <Calendar 
+                      mode="single" 
+                      selected={date} 
+                      onSelect={(newDate) => {
+                        setDate(newDate);
+                        // Use functional update to ensure latest state
+                        if (newDate) {
+                          setFormData(prev => ({...prev, deadline: newDate.toISOString()}));
+                        } else {
+                          setFormData(prev => ({...prev, deadline: ''}));
+                        }
+                      }} 
+                    />
                     </div>
                   </PopoverContent>
                 </Popover>
