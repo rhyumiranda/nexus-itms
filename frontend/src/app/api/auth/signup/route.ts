@@ -23,8 +23,8 @@ export async function POST( request: NextRequest ) {
 
     response.cookies.set( 'pb_auth', pb.authStore.token, {
       httpOnly: true,
-      secure: true,
-      sameSite: 'strict',
+      secure: false,
+      sameSite: 'lax',
       path: '/',
       maxAge: 60 * 60 * 24 * 7
     })
