@@ -134,9 +134,9 @@ export default function CreateTaskModal() {
                       <SelectValue placeholder="Theme" />
                     </SelectTrigger>
                     <SelectContent >
-                      <SelectItem value="Not started">Not started</SelectItem>
+                      <SelectItem value="Not Started">Not Started</SelectItem>
                         <SelectItem value="In Progress">In Progress</SelectItem>
-                      <SelectItem value="Complete">Complete</SelectItem>
+                      <SelectItem value="Completed">Completed</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
