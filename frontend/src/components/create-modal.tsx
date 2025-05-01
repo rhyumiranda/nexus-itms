@@ -1,6 +1,7 @@
 "use client"
 import { useEffect, useState } from 'react'
 import {format, addDays} from 'date-fns'
+import Cookies from 'js-cookie'
 
 import {
   Dialog,
@@ -31,95 +32,76 @@ import { cn } from '@/lib/utils'
 import { Calendar } from './ui/calendar'
 import { pb } from '@/lib/utils'
 
+interface TaskFormData {
+  title: string;
+  description: string;
+  user: string;
+  status: string;
+  priority: string;
+  deadline: string;
+}
 
-export default function CreateModal() {
+export default function CreateTaskModal() {
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<TaskFormData>({
     title: '',
     description: '',
-    'status': '',
-    'priority': '',
-    'deadline': ''
+    user: '',
+    status: '',
+    priority: '',
+    deadline: ''
   });
 
-  useEffect(() => {
-    console.log("Title: ", formData.title);
-    console.log("Description: ", formData.description);
-    console.log("Status: ", formData.status);
-    console.log("Priority: ", formData.priority);
-    console.log("Deadline: ", formData.deadline);
-  }, [formData])
-
   const [date, setDate] = useState<Date | undefined>(undefined);
+  const [userId, setUserId] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    const id = Cookies.get('pb_user_id');
+    if (id) setUserId(id);
+  }, [])
+
+  console.log("User ID from cookie:", userId);
 
   const handleCreateTask = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    console.log("Auth store:", pb.authStore);
-    console.log("Auth model:", pb.authStore.model);
-    console.log("Auth token:", pb.authStore.token);
-    
-    const userId = pb.authStore.model?.id;
-    console.log("User ID from auth:", userId);
-
     try {
-      
-    } catch (error: unknown) {
-      console.error("PocketBase error:", error);
-      if (error && typeof error === 'object' && 'response' in error) {
-        console.error("Response data:", (error as any).response.data);
+      const response = await fetch('/api/records/tasks/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          title: formData.title,
+          description: formData.description,
+          user: userId,
+          status: formData.status,
+          priority: formData.priority,
+          deadline: formData.deadline
+        })
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        window.location.reload();
+
+        setFormData({
+          title: '',
+          description: '',
+          user: '',
+          status: '',
+          priority: '',
+          deadline: ''
+        });
+    
+        setDate(undefined);
+      } else {
+        console.log(data.error);
       }
+    } catch (error) {
+      console.log('Failed to create task:', error);
     }
-
-    const taskData = {
-      title: formData.title || "Untitled Task", // Provide fallbacks
-      description: formData.description || "",
-      status: formData.status || "Not started",
-      priority: formData.priority || "Low",
-      deadline: formData.deadline || new Date().toISOString(),
-      user: "o9c72mnm42cyu37" // Make sure this field matches your PocketBase schema
-    };
-
-    console.log("Sending to PocketBase:", taskData);
-
-    const record = await pb.collection('tasks').create(taskData);
-    console.log("Task created successfully:", record);
-
-    setFormData({
-      title: '',
-      description: '',
-      status: '',
-      priority: '',
-      deadline: ''
-    });
-
-    setDate(undefined);
-
-    // try {
-    //   const response = await fetch('/api/records/tasks/create', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({
-    //       title: formData.title,
-    //       description: formData.description,
-    //       status: formData.status,
-    //       priority: formData.priority,
-    //       deadline: formData.deadline
-    //     })
-    //   });
-
-    //   const data = await response.json();
-
-    //   if (data.success) {
-    //     window.location.reload();
-    //   } else {
-    //     console.log(data.error);
-    //   }
-    // } catch (error) {
-    //   console.log('Failed to create task:', error);
-    // }
   }
 
   return (
