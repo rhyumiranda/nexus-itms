@@ -1,5 +1,8 @@
 "use client"
 
+import Cookies from "js-cookie"
+import { useEffect, useState } from "react"
+
 import {
   IconCreditCard,
   IconDotsVertical,
@@ -40,6 +43,22 @@ export function NavUser({
 }) {
   const { isMobile } = useSidebar()
 
+  const [userName, setUserName] = useState({
+    firstName: '',
+    lastName: '',
+  });
+
+  useEffect(() => {
+    const fn = Cookies.get('pb_user_fn');
+    const ln = Cookies.get('pb_user_ln');
+
+    if (fn) setUserName({...userName, firstName: fn});
+    if (ln) setUserName({...userName, lastName: ln});
+  }, [])
+
+  console.log(userName.firstName + userName.lastName);
+
+
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -54,7 +73,7 @@ export function NavUser({
                 <AvatarFallback className="rounded-lg">CN</AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium">{user.name}</span>
+                <span className="truncate font-medium">{userName.firstName + userName.lastName}</span>
                 <span className="text-muted-foreground truncate text-xs">
                   {user.email}
                 </span>
@@ -82,21 +101,6 @@ export function NavUser({
                 </div>
               </div>
             </DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <IconUserCircle />
-                Account
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <IconCreditCard />
-                Billing
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <IconNotification />
-                Notifications
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
               <IconLogout />
