@@ -1,4 +1,6 @@
 "use client"
+
+import {toast} from "sonner"
 import { useEffect, useState } from 'react'
 import {format, addDays} from 'date-fns'
 import Cookies from 'js-cookie'
@@ -30,7 +32,6 @@ import {
 } from "@/components/ui/popover"
 import { cn } from '@/lib/utils'
 import { Calendar } from './ui/calendar'
-import { pb } from '@/lib/utils'
 
 interface TaskFormData {
   title: string;
@@ -86,6 +87,10 @@ export default function CreateTaskModal() {
       if (data.success) {
         window.location.reload();
 
+        toast.success("Created", {
+          description: "Your new task has been added to the list.",
+        });        
+
         setFormData({
           title: '',
           description: '',
@@ -106,7 +111,7 @@ export default function CreateTaskModal() {
 
   return (
     <Dialog>
-      <DialogTrigger asChild>
+      <DialogTrigger className="bg-primary text-white hover:bg-primary/80 transition-colors duration-200 rounded-md px-2" asChild>
         <div className="flex items-center gap-2">
           <IconCirclePlusFilled />
           <Button className="bg-transparent hover:bg-transparent">Quick Create</Button>
@@ -159,16 +164,19 @@ export default function CreateTaskModal() {
                 <label htmlFor="deadline">Deadline</label>
                 <Popover>
                   <PopoverTrigger asChild>
-                    <Button
-                      variant={"outline"}
-                      className={cn(
-                        "w-[240px] justify-start text-left font-normal",
-                        !date && "text-muted-foreground"
-                      )}
-                    >
-                      <CalendarIcon />
-                      {date ? format(date, "PPP") : <span>Pick a date</span>}
-                    </Button>
+                    <div className="inline-block">
+                      <Button
+                        type="button"
+                        variant={"outline"}
+                        className={cn(
+                          "w-[240px] justify-start text-left font-normal",
+                          !date && "text-muted-foreground"
+                        )}
+                      >
+                        <CalendarIcon />
+                        {date ? format(date, "PPP") : <span>Pick a date</span>}
+                      </Button>
+                    </div>
                   </PopoverTrigger>
                   <PopoverContent
                     align="start"
