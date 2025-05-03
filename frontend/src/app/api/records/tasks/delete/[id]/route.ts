@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { pb } from '@/lib/utils';
 import { cookies } from 'next/headers';
 
-export async function DELETE(request: Request, { params }: { params: { id: string } }) {  
+export async function DELETE(request: Request) {  
   const id = await request.json();
   
   const cookieStore = await cookies();
@@ -14,9 +14,8 @@ export async function DELETE(request: Request, { params }: { params: { id: strin
   
   
   try {
-    const taskId = params.id;
 
-    console.log("Deleting task:", taskId);
+    console.log("Deleting task:", id);
 
     const response = await pb.collection('tasks').delete(id);
 
