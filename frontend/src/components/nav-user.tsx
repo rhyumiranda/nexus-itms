@@ -2,6 +2,7 @@
 
 import Cookies from "js-cookie"
 import { useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
 
 import {
   IconCreditCard,
@@ -41,7 +42,8 @@ export function NavUser({
     avatar: string
   }
 }) {
-  const { isMobile } = useSidebar()
+  const { isMobile } = useSidebar();
+  const router = useRouter();
 
   const [userName, setUserName] = useState({
     firstName: '',
@@ -57,6 +59,23 @@ export function NavUser({
   }, [])
 
   console.log(userName.firstName + userName.lastName);
+
+  const handleLogout = async () => {
+    try {
+      const response = await fetch('/api/auth/logout', {
+        method: 'POST',
+        credentials: 'include',
+      });
+      
+      Cookies.remove('pb_user_id');
+      Cookies.remove('pb_user_fn');
+      Cookies.remove('pb_user_ln');
+
+      router.push('/auth/login');
+    } catch (error) {
+      console.error('Error during logout:', error);
+    }
+  }
 
 
   return (
@@ -102,7 +121,7 @@ export function NavUser({
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={handleLogout}>
               <IconLogout />
               Log out
             </DropdownMenuItem>

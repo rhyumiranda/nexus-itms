@@ -33,9 +33,23 @@ export function SectionCards({ tasks }: SectionCardsProps) {
   let inProgressTasks = tasks.filter(
     (task) => task.status === "In Progress"
   ).length;
-  let completedTasks = tasks.filter(
-    (task) => task.status === "Completed"
-  ).length;
+  
+  let dueTodayTasks = tasks.filter(task => {
+    // Parse the deadline date (handle different date formats)
+    const taskDate = new Date(task.deadline);
+    
+    // Get today's date (without time)
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    // Check if date is today by comparing year, month, and day
+    const isToday = taskDate.getFullYear() === today.getFullYear() &&
+                    taskDate.getMonth() === today.getMonth() &&
+                    taskDate.getDate() === today.getDate();
+    
+    // Return true if the task is due today AND not completed
+    return isToday && task.status !== "Completed";
+  }).length;
 
   return (
     <div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-4 px-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs lg:px-6 @xl/main:grid-cols-2 @5xl/main:grid-cols-4">
@@ -107,9 +121,9 @@ export function SectionCards({ tasks }: SectionCardsProps) {
       </Card>
       <Card className="@container/card">
         <CardHeader>
-          <CardDescription>Completed</CardDescription>
+          <CardDescription>Due Today</CardDescription>
           <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-            {completedTasks}
+            {dueTodayTasks}
           </CardTitle>
           <CardAction>
             <Badge variant="outline">
