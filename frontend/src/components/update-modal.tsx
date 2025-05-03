@@ -40,7 +40,7 @@ interface TaskFormData {
   status: string;
   priority: string;
   deadline: string;
-  createdAt: string;
+  created: string;
 }
 
 import { Pencil } from 'lucide-react'
@@ -57,7 +57,7 @@ export default function UpdateTaskModal( {task}: {task: TaskFormData} ) {
     deadline: task.deadline && !isNaN(new Date(task.deadline).getTime()) 
       ? new Date(task.deadline).toISOString() 
       : '',
-    createdAt: task.createdAt,
+    created: task.created,
   });
 
   const [date, setDate] = useState<Date | undefined>(task.deadline ? new Date(task.deadline) : undefined);
@@ -87,7 +87,7 @@ export default function UpdateTaskModal( {task}: {task: TaskFormData} ) {
           status: formData.status,
           priority: formData.priority,
           deadline: formData.deadline,
-          createdAt: formData.createdAt,
+          createdAt: formData.created,
         })
       });
 
