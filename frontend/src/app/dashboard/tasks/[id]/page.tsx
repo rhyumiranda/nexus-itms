@@ -1,6 +1,12 @@
 import TaskDetails from "@/components/task-details";
 
-export default async function TaskPage({ params }: { params: { id: string } }) {
+type Props = {
+  params: {
+    id: string;
+  };
+};
+
+export default async function TaskPage({ params }: Props) {
   const { id } = params;
 
   const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/records/tasks/read/${id}`);
