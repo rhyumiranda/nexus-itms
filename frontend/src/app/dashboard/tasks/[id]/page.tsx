@@ -1,11 +1,10 @@
+"use client";
+
+import { useParams } from "next/navigation";
 import TaskDetails from "@/components/task-details";
 
-type PageProps = {
-  params: Promise<{ id: string }>;
-};
-
-
-export default async function TaskPage({ params }: PageProps) {
+export default async function TaskPage() {
+  const params = useParams();
   const { id } = params;
 
   const response = await fetch(
