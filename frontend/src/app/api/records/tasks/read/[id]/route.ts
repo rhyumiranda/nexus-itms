@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { pb } from '@/lib/utils';
 
-export async function GET({ params }: { params: { id: string } }) {
+export async function POST({ params }: { params: { id: string } }) {
   const { id } = params;
 
   try {
