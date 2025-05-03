@@ -1,7 +1,5 @@
 "use client"
 
-import { useEffect } from "react"
-import { usePathname, useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { LayoutGrid, Table2 } from "lucide-react"
 

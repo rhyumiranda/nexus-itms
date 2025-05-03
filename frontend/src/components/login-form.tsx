@@ -1,7 +1,6 @@
 'use client'
 
 import Link from "next/link"
-import { NextResponse } from "next/server"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"

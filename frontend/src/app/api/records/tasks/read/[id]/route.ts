@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import PocketBase from 'pocketbase';
 import { pb } from '@/lib/utils';
 
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
