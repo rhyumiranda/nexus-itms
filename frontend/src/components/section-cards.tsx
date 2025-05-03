@@ -18,7 +18,7 @@ interface Task {
   status: string;
   priority: string;
   deadline: string;
-  createdAt: Date;
+  created: Date | string;
 }
 
 interface SectionCardsProps {
@@ -26,28 +26,23 @@ interface SectionCardsProps {
 }
 
 export function SectionCards({ tasks }: SectionCardsProps) {
-  let totalTask = tasks.length;
-  let notStartedTasks = tasks.filter(
+  const totalTask = tasks.length;
+  const notStartedTasks = tasks.filter(
     (task) => task.status === "Not Started"
   ).length;
-  let inProgressTasks = tasks.filter(
+  const inProgressTasks = tasks.filter(
     (task) => task.status === "In Progress"
   ).length;
   
-  let dueTodayTasks = tasks.filter(task => {
-    // Parse the deadline date (handle different date formats)
+  const dueTodayTasks = tasks.filter(task => {
     const taskDate = new Date(task.deadline);
     
-    // Get today's date (without time)
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     
-    // Check if date is today by comparing year, month, and day
     const isToday = taskDate.getFullYear() === today.getFullYear() &&
                     taskDate.getMonth() === today.getMonth() &&
                     taskDate.getDate() === today.getDate();
-    
-    // Return true if the task is due today AND not completed
     return isToday && task.status !== "Completed";
   }).length;
 

@@ -1,8 +1,8 @@
-import {NextResponse, NextRequest} from "next/server";
+import {NextResponse} from "next/server";
 import { pb } from "@/lib/utils";
 import { cookies } from 'next/headers';
 
-export async function GET(request: NextRequest) {
+export async function GET() {
 
   try{
 

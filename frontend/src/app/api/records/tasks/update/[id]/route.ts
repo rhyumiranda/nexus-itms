@@ -43,15 +43,9 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
     if (error instanceof Error) {
       console.error("Error details:", error.message);
       
-      const pbError = error as any;
-      if (pbError.data) {
-        console.error("PocketBase error data:", pbError.data);
-      }
-      
       return NextResponse.json({
         success: false,
         error: 'Failed to update task: ' + error.message,
-        errorDetails: pbError.data || {}
       }, { status: 500 });
     } else {
       return NextResponse.json({

@@ -2,14 +2,6 @@
 
 import * as React from "react"
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-
 import Link from "next/link"
 
 import { TaskCard } from "./task-card"
@@ -31,9 +23,7 @@ interface TaskListProps {
 
 export function TaskList({ tasks, refreshTasks } : TaskListProps) {
 
-  // In TaskCard or TaskList
   const handleStatusChange = async (newStatus: string) => {
-    // ...update logic...
     if (refreshTasks) refreshTasks();
   };
 

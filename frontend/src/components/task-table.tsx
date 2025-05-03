@@ -33,7 +33,8 @@ export default function TaskTable({tasks, refreshTasks} : TasksTableViewProps) {
   const [searchQuery, setSearchQuery] = useState("")
 
   const handleStatusChange = async (newStatus: string) => {
-    // ...update logic...
+
+    console.log("Status changed to:", newStatus);
     if (refreshTasks) refreshTasks();
   };
 

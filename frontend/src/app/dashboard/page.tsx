@@ -13,10 +13,22 @@ import {
 import TaskFilters from '@/components/ui/task-filters';
 import { ViewToggle } from '@/components/view-toggle';
 
+interface Task {
+  id: string;
+  title: string;
+  description: string;
+  user: string;
+  status: string;
+  priority: string;
+  deadline: string;
+  created: string;
+  updated: string;
+}
+
 
 export default function Page() {
 
-  const [data, setData] = useState<any[]>([]);
+  const [data, setData] = useState<Task[]>([]);
   const [activeFilter, setActiveFilter] = useState<string>("all");
   const [view, setView] = useState<string>("grid");
 

@@ -4,7 +4,6 @@ import { toast } from "sonner"
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -86,7 +85,7 @@ export default function TaskDetails({task} : TaskDetailsProps) {
         year: "numeric",
       });
     } catch (error) {
-      return "Invalid date";
+      return "Invalid date: " + error;
     }
   };
 
