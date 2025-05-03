@@ -1,58 +1,49 @@
-import {NextResponse, NextRequest} from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import { pb } from "@/lib/utils";
 import { cookies } from "next/headers";
 
-export async function PATCH(request: NextRequest, { params }: { params: { id: string } }) { 
-
-  try{
-
-    const cookieStore = await cookies();
+export async function PATCH(request: NextRequest) {
+  try {
+    const cookieStore = await cookies(); // no need to await
     const authCookie = cookieStore.get('pb_auth')?.value;
 
     if (authCookie) {
       pb.authStore.save(authCookie);
     }
 
-    const taskId = params.id;
+    // Extract ID from the URL
+    const url = new URL(request.url);
+    const taskId = url.pathname.split("/").pop(); // gets the [id]
+
+    if (!taskId) {
+      return NextResponse.json({ success: false, error: "Missing task ID" }, { status: 400 });
+    }
 
     const { title, description, user, status, priority, deadline, createdAt } = await request.json();
 
-    console.log("Updating task:", taskId);
-    console.log("Data:", { title, description, user, status, priority, deadline });
-
-  
-    const record = await pb.collection('tasks').update(taskId, {
-      "title": title,
-      "description": description, 
-      "user": user,
-      "status": status,
-      "priority": priority,
-      "deadline": deadline,
-      "createdAt": createdAt
+    const record = await pb.collection("tasks").update(taskId, {
+      title,
+      description,
+      user,
+      status,
+      priority,
+      deadline,
+      createdAt,
     });
-
-    console.log("Update successful:", record);
 
     return NextResponse.json({
       success: true,
-      task: record
+      task: record,
     });
   } catch (error: unknown) {
     console.error("Error updating task:", error);
-    
-    if (error instanceof Error) {
-      console.error("Error details:", error.message);
-      
-      return NextResponse.json({
+
+    return NextResponse.json(
+      {
         success: false,
-        error: 'Failed to update task: ' + error.message,
-      }, { status: 500 });
-    } else {
-      return NextResponse.json({
-        success: false,
-        error: 'Failed to update task: ' + String(error),
-        errorDetails: {}
-      }, { status: 500 });
-    }
+        error: error instanceof Error ? error.message : String(error),
+      },
+      { status: 500 }
+    );
   }
 }
