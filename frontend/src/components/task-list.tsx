@@ -24,6 +24,7 @@ interface TaskListProps {
 export function TaskList({ tasks, refreshTasks } : TaskListProps) {
 
   const handleStatusChange = async (newStatus: string) => {
+    console.log("Status changed to:", newStatus);
     if (refreshTasks) refreshTasks();
   };
 
