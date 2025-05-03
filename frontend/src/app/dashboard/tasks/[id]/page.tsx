@@ -1,29 +1,18 @@
 import TaskDetails from "@/components/task-details";
-import { NextRequest } from "next/server";
 
-export async function getServerSideProps({ req }: { req: NextRequest }) {
-  const url = new URL(req.url);
-  const id = url.pathname.split("/").pop();
-
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/records/tasks/read/${id}`,
-    { cache: 'no-store' }
-  );
-  const data = await response.json();
-
-  if (!data.success || !data.task) {
-    return {
-      notFound: true,
-    };
-  }
-
-  return {
-    props: { task: data.task },
+interface TaskPageProps {
+  params: {
+    id: string;
   };
 }
 
-export default function TaskPage({ task }: { task: any }) {
-  if (!task) {
+export default async function TaskPage({ params }: TaskPageProps) {
+  const { id } = params;
+
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/records/tasks/read/${id}`);
+  const data = await response.json();
+
+  if (!data.success || !data.task) {
     return (
       <div className="container mx-auto py-8 px-4">
         <h1 className="text-2xl font-bold">Task not found</h1>
@@ -31,6 +20,6 @@ export default function TaskPage({ task }: { task: any }) {
       </div>
     );
   }
-
-  return <TaskDetails task={task} />;
+  
+  return <TaskDetails task={data.task} />;
 }
