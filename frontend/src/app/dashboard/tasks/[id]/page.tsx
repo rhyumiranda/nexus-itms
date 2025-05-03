@@ -1,10 +1,13 @@
 import TaskDetails from "@/components/task-details";
 
-type Params = {
-  id: string;
+type PageProps = {
+  params: {
+    id: string;
+  };
 };
 
-export default async function TaskPage({ params }: { params: Params }) {
+
+export default async function TaskPage({ params }: PageProps) {
   const { id } = params;
 
   const response = await fetch(
