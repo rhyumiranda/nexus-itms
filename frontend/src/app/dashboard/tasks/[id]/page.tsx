@@ -1,15 +1,12 @@
 import TaskDetails from "@/components/task-details";
 
-type Props = {
-  params: {
-    id: string;
-  };
-};
+export default async function TaskPage({ params }: { params: { id: string } }) {
+  const id = params.id;
 
-export default async function TaskPage({ params }: Props) {
-  const { id } = params;
-
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/records/tasks/read/${id}`);
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/records/tasks/read/${id}`,
+    { cache: 'no-store' } // Optional: disables caching
+  );
   const data = await response.json();
 
   if (!data.success || !data.task) {
@@ -20,6 +17,6 @@ export default async function TaskPage({ params }: Props) {
       </div>
     );
   }
-  
-  return <TaskDetails task={data.task}/>;
+
+  return <TaskDetails task={data.task} />;
 }
