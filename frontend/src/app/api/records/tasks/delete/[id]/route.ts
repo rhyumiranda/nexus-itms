@@ -1,9 +1,9 @@
-import { NextResponse } from 'next/server';
+import { NextResponse, NextRequest } from 'next/server';
 import { pb } from '@/lib/utils';
 import { cookies } from 'next/headers';
 
 export async function DELETE(request: Request, { params }: { params: { id: string } }) {  
-  const {id} = params;
+  const id = await request.json();
   
   const cookieStore = await cookies();
   const authCookie = cookieStore.get('pb_auth')?.value;

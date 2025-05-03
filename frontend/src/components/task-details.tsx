@@ -92,10 +92,13 @@ export default function TaskDetails({task} : TaskDetailsProps) {
   const handleDeleteTask = async () => {
     try{
       const response = await fetch(`/api/records/tasks/delete/${task.id}`, {
-        method: "DELETE",
+        method: "POSTT",
         headers: {
           "Content-Type": "application/json",
         },
+        body: JSON.stringify({
+          id: task.id,
+        }),
       });
 
       const data = await response.json();
