@@ -24,6 +24,7 @@ export default function TaskPage() {
           setError(true);
         }
       } catch (err) {
+        console.error("Error fetching task:", err);
         setError(true);
       }
     };
