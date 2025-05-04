@@ -1,0 +1,8 @@
+{
+  "cors": {
+    "enabled": true,
+    "allowedOrigins": ["https://your-vercel-deployment-url.vercel.app"],
+    "allowedHeaders": ["*"],
+    "allowedMethods": ["GET", "POST", "DELETE", "PATCH"]
+  }
+}
