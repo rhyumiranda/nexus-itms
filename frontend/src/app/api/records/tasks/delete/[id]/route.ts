@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import { pb } from '@/lib/utils';
 import { cookies } from 'next/headers';
-import { env } from 'process';
 
 export async function DELETE(
   request: Request,
