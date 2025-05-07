@@ -15,12 +15,31 @@ export default function TaskPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        console.log(`Fetching task with id: ${id}`);
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || '';
+        console.log(`API URL: ${apiUrl}`);
+        
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000"}/api/records/tasks/read/${id}`,
-          { cache: "no-store" }
+          `${apiUrl}/api/records/tasks/read/${id}`,
+          { 
+            credentials: 'include', // Important for cookies
+            cache: "no-store",
+            headers: {
+              'Accept': 'application/json'
+            }
+          }
         );
 
+        // Check if response is ok before parsing JSON
+        if (!response.ok) {
+          console.error(`Error response: ${response.status} ${response.statusText}`);
+          const text = await response.text();
+          console.error("Response body:", text);
+          throw new Error(`API returned ${response.status}: ${response.statusText}`);
+        }
+
         const data = await response.json();
+        console.log("Response data:", data);
 
         if (data.success && data.task) {
           setTask(data.task);
@@ -45,7 +64,7 @@ export default function TaskPage() {
   }
 
   if (task === null || error) {
-    return (<TaskNotFound/>);
+    return <TaskNotFound/>;
   }
 
   return <TaskDetails task={task} />;
