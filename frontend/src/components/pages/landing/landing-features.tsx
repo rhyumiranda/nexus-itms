@@ -24,7 +24,7 @@ export function LandingFeatures() {
               <h3 className="text-xl font-bold">Intuitive Dashboard</h3>
             </div>
             <p className="text-muted-foreground">
-              Get a clear overview of all your tasks with our customizable dashboard. See what's due, in progress, and
+              Get a clear overview of all your tasks with our customizable dashboard. See what&apos;s due, in progress, and
               completed at a glance.
             </p>
           </div>
@@ -47,7 +47,7 @@ export function LandingFeatures() {
               <h3 className="text-xl font-bold">Progress Tracking</h3>
             </div>
             <p className="text-muted-foreground">
-              Stay on top of your productivity by seeing which tasks are completed and what’s still pending.
+              Stay on top of your productivity by seeing which tasks are completed and what&apos;s still pending.
             </p>
           </div>
           <div className="grid gap-4 text-center sm:text-left">

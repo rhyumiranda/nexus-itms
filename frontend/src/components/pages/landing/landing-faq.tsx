@@ -18,7 +18,7 @@ export function LandingFaq() {
             <AccordionItem value="item-2">
               <AccordionTrigger>Can I change plans later?</AccordionTrigger>
               <AccordionContent>
-                Yes, you can upgrade, downgrade, or cancel your plan at any time. When upgrading, you'll get immediate
+                Yes, you can upgrade, downgrade, or cancel your plan at any time. When upgrading, you&apos;ll get immediate
                 access to the new features. When downgrading, the changes will take effect at the start of your next
                 billing cycle.
               </AccordionContent>
@@ -34,8 +34,8 @@ export function LandingFaq() {
               <AccordionTrigger>How does team collaboration work?</AccordionTrigger>
               <AccordionContent>
                 Nexus makes collaboration easy. You can assign tasks to team members, share project boards, leave
-                comments, and track everyone's progress. Team members will receive notifications about their assignments
-                and any updates to tasks they're involved with.
+                comments, and track everyone&apos;s progress. Team members will receive notifications about their assignments
+                and any updates to tasks they&apos;re involved with.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-5">
