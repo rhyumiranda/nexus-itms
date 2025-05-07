@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/sidebar"
 import CreateModal from "./create-modal"
 import Link from "next/link"
+import { LucideIcon } from "lucide-react"
 
 
 export function NavMain({
@@ -20,7 +21,7 @@ export function NavMain({
   items: {
     title: string
     url: string
-    icon?: Icon
+    icon?: Icon | undefined | null | string | LucideIcon
   }[]
 }) {
   return (

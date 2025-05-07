@@ -52,7 +52,7 @@ export function NavUser({
 
     if (fn) setUserName({...userName, firstName: fn});
     if (ln) setUserName({...userName, lastName: ln});
-  }, [userName]);
+  }, []);
 
   console.log(userName.firstName + userName.lastName);
 

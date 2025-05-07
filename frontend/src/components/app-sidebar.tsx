@@ -13,6 +13,7 @@ import {
 
 import { NavMain } from "@/components/nav-main"
 import { NavSecondary } from "@/components/nav-secondary"
+import { Bell } from "lucide-react"
 import { NavUser } from "@/components/nav-user"
 import {
   Sidebar,
@@ -37,9 +38,9 @@ const data = {
       icon: IconDashboard,
     },
     {
-      title: "Analytics",
-      url: "/dashboard/analytics",
-      icon: IconChartBar,
+      title: "Reminders",
+      url: "/dashboard/reminders",
+      icon: Bell,
     }
   ],
   navClouds: [

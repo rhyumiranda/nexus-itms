@@ -92,29 +92,40 @@ export default function TaskDetails({task} : TaskDetailsProps) {
   const handleDeleteTask = async () => {
     try{
       const response = await fetch(`/api/records/tasks/delete/${task.id}`, {
-        method: "POSTT",
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      toast.success("Deleted", {
+        description: "The task has been successfully removed from your list.",
+      });        
+      router.push("/dashboard");
+    } catch (error) {
+      console.log(error);
+      console.error("Error deleting task: ", error);
+    }
+  }
+
+  const handleCompleteTask = async () => {
+    try {
+      const response = await fetch(`/api/records/tasks/update/${task.id}`, {
+        method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          id: task.id,
+          status: "Completed",
         }),
       });
 
-      const data = await response.json();
-
-      if (data.success) {
-        console.log("Task deleted successfully");
-        toast.success("Deleted", {
-          description: "The task has been successfully removed from your list.",
-        });        
-        router.push("/dashboard");
-      } else {
-        console.error("Failed to delete task: ", data.error);
-      }
+      toast.success("Task completed", {
+        description: "The task has been marked as completed.",
+      });
+      router.push("/dashboard");
     } catch (error) {
-      console.log(error);
-      console.error("Error deleting task: ", error);
+      console.error("Error completing task: ", error);
     }
   }
 
@@ -156,7 +167,7 @@ export default function TaskDetails({task} : TaskDetailsProps) {
               </div>
             </div>
           </CardHeader>
-          <CardContent className="space-y-6">
+          <CardContent className="space -y-6">
             <div className="flex flex-col gap-2">
               <h3>Description</h3>
               <p className="text-muted-foreground">{task.description}</p>
@@ -194,7 +205,7 @@ export default function TaskDetails({task} : TaskDetailsProps) {
           </CardContent>
           <CardFooter className="flex justify-end gap-3 border-t pt-6">
             <UpdateTaskModal task={task} />
-            <Button>
+            <Button onClick={handleCompleteTask}>
               <Check className="h-4 w-4" />
             </Button>
             <AlertDialog>
