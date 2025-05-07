@@ -13,7 +13,7 @@ export async function PATCH(request: NextRequest) {
 
     // Extract ID from the URL
     const url = new URL(request.url);
-    const taskId = url.pathname.split("/").pop(); // gets the [id]
+    const taskId = url.pathname.split("/").pop();
 
     if (!taskId) {
       return NextResponse.json({ success: false, error: "Missing task ID" }, { status: 400 });

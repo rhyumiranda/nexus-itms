@@ -2,8 +2,12 @@ import { NextResponse } from 'next/server';
 import { pb } from '@/lib/utils';
 import { cookies } from 'next/headers';
 
-export async function DELETE(request: Request) {  
-  const id = await request.json();
+export async function DELETE(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
+  // Extract id from URL params instead of request body
+  const { id } = params;
   
   const cookieStore = await cookies();
   const authCookie = cookieStore.get('pb_auth')?.value;
@@ -12,15 +16,13 @@ export async function DELETE(request: Request) {
   }
   console.log("Auth cookie:", authCookie);
   
-  
   try {
-
-    console.log("Deleting task:", id);
-
+    console.log("Deleting task with ID:", id);
+    
     const response = await pb.collection('tasks').delete(id);
-
+    
     console.log("Delete response:", response);
-
+    
     return NextResponse.json({
       success: true,
       message: 'Task deleted successfully'
