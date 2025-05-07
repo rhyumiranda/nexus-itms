@@ -14,7 +14,7 @@ interface Task {
   updated: string;
 }
 
-export default function page() {
+export default function ReminderRoute() {
   const [task, setTask] = useState<Task[]>([]);
 
   const fetchTasks = async () => {
