@@ -94,7 +94,7 @@ export function TaskReminders({tasks, refreshTasks} : TasksReminderProps) {
                 <div className="flex flex-col items-center justify-center rounded-lg border border-dashed p-8 text-center">
                   <h3 className="mt-2 text-lg font-semibold">No upcoming reminders</h3>
                   <p className="mb-4 mt-1 text-sm text-muted-foreground">
-                    You're all caught up! There are no tasks due soon.
+                    You&apos;re all caught up! There are no tasks due soon.
                   </p>
                 </div>
               )}

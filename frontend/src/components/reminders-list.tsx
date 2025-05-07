@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Calendar, CheckCircle2, Clock } from "lucide-react"
+import { Calendar, CheckCircle2 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { toast } from "sonner"
 
@@ -41,6 +41,10 @@ export function RemindersList({ title, description, tasks, variant, refreshTasks
           status: "Completed",
         }),
       });
+
+      if(response.ok){
+        console.log("Task completed successfully");
+      }
 
       toast.success("Task completed", {
         description: "The task has been marked as completed.",

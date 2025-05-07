@@ -98,6 +98,10 @@ export default function TaskDetails({task} : TaskDetailsProps) {
         },
       });
 
+      if(response.ok){
+        console.log("Task deleted successfully");
+      }
+
       toast.success("Deleted", {
         description: "The task has been successfully removed from your list.",
       });        
@@ -119,6 +123,10 @@ export default function TaskDetails({task} : TaskDetailsProps) {
           status: "Completed",
         }),
       });
+
+      if(response.ok){
+        console.log("Task completed successfully");
+      }
 
       toast.success("Task completed", {
         description: "The task has been marked as completed.",

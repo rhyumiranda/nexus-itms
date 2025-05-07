@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { FileQuestion, Home, Search } from "lucide-react"
+import { FileQuestion, Home } from "lucide-react"
 
 export default function TaskNotFound() {
   return (
@@ -16,7 +16,7 @@ export default function TaskNotFound() {
           <CardTitle className="text-2xl">Task Not Found</CardTitle>
         </CardHeader>
         <CardContent className="text-center text-muted-foreground pb-6">
-          <p className="mb-2">Check that you have the correct task ID or try searching for the task. The task you're looking for doesn't exist or may have been deleted.</p>
+          <p className="mb-2">Check that you have the correct task ID or try searching for the task. The task you&apos;re looking for doesn&apos;t exist or may have been deleted.</p>
         </CardContent>
         <CardFooter className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button asChild variant="default" className=" w-full">
