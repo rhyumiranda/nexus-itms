@@ -1,5 +1,6 @@
 import Link from "next/link"
-import { CheckCircle2, Github, Linkedin, Twitter } from "lucide-react"
+import { Github, Linkedin, Twitter } from "lucide-react"
+import Image from "next/image"
 
 export function LandingFooter() {
   return (
@@ -8,7 +9,13 @@ export function LandingFooter() {
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <CheckCircle2 className="h-6 w-6 text-primary" />
+              <Image 
+                                        src="/logo/nexus_logo_white.svg" 
+                                        alt="Nexus Logo" 
+                                        width={16} 
+                                        height={16}
+                                        className="size-4"
+                                      />
               <span className="text-xl font-semibold">Nexus</span>
             </div>
             <p className="text-sm text-muted-foreground max-w-[200px]">
@@ -27,7 +34,7 @@ export function LandingFooter() {
                 <Github className="h-5 w-5" />
                 <span className="sr-only">GitHub</span>
               </Link>
-            </div>
+            </div>Image
           </div>
           <div className="space-y-4">
             <h3 className="text-base font-medium">Product</h3>

@@ -28,14 +28,8 @@ export function LandingNavbar() {
           <Link href="#features" className="text-sm font-medium text-muted-foreground hover:text-foreground">
             Features
           </Link>
-          <Link href="#testimonials" className="text-sm font-medium text-muted-foreground hover:text-foreground">
-            Testimonials
-          </Link>
           <Link href="#how-it-works" className="text-sm font-medium text-muted-foreground hover:text-foreground">
             How It Works
-          </Link>
-          <Link href="#pricing" className="text-sm font-medium text-muted-foreground hover:text-foreground">
-            Pricing
           </Link>
           <Link href="#faq" className="text-sm font-medium text-muted-foreground hover:text-foreground">
             FAQ
@@ -75,25 +69,11 @@ export function LandingNavbar() {
                 Features
               </Link>
               <Link
-                href="#testimonials"
-                className="text-sm font-medium text-muted-foreground hover:text-foreground"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Testimonials
-              </Link>
-              <Link
                 href="#how-it-works"
                 className="text-sm font-medium text-muted-foreground hover:text-foreground"
                 onClick={() => setIsMenuOpen(false)}
               >
                 How It Works
-              </Link>
-              <Link
-                href="#pricing"
-                className="text-sm font-medium text-muted-foreground hover:text-foreground"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Pricing
               </Link>
               <Link
                 href="#faq"
