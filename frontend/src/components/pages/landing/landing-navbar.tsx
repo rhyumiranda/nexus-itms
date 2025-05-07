@@ -85,12 +85,12 @@ export function LandingNavbar() {
             </nav>
             <div className="flex flex-col space-y-2">
               <Button variant="outline" asChild className="w-full">
-                <Link href="/login" onClick={() => setIsMenuOpen(false)}>
+                <Link href="/auth/login" onClick={() => setIsMenuOpen(false)}>
                   Log in
                 </Link>
               </Button>
               <Button asChild className="w-full">
-                <Link href="/login" onClick={() => setIsMenuOpen(false)}>
+                <Link href="/auth/signup" onClick={() => setIsMenuOpen(false)}>
                   Sign up
                 </Link>
               </Button>

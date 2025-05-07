@@ -30,7 +30,7 @@ export function LandingHero() {
             </div>
             <div className="flex flex-col gap-2 min-[400px]:flex-row">
               <Button size="lg" asChild>
-                <Link href="/login">Get Started</Link>
+                <Link href="/auth/login">Get Started</Link>
               </Button>
               <Button size="lg" variant="outline" asChild>
                 <Link href="#how-it-works">See How It Works</Link>
