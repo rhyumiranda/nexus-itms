@@ -1,12 +1,12 @@
 import { NextResponse } from 'next/server';
 import { pb } from '@/lib/utils';
 import { cookies } from 'next/headers';
+import { env } from 'process';
 
 export async function DELETE(
   request: Request,
   { params }: { params: { id: string } }
 ) {
-  // Extract id from URL params instead of request body
   const { id } = params;
   
   const cookieStore = await cookies();
@@ -14,25 +14,20 @@ export async function DELETE(
   if (authCookie) {
     pb.authStore.save(authCookie);
   }
-  console.log("Auth cookie:", authCookie);
   
-  try {
-    console.log("Deleting task with ID:", id);
-    
-    const response = await pb.collection('tasks').delete(id);
-    
-    console.log("Delete response:", response);
-    
-    return NextResponse.json({
-      success: true,
-      message: 'Task deleted successfully'
-    });
-  } catch (error) {
-    console.error("Error deleting task:", error);
-    
-    return NextResponse.json({
-      success: false,
-      error: 'Failed to delete task: ' + String(error)
-    }, { status: 500 });
+  const pb_auth_token = cookieStore.get('pb_auth')?.value;
+  const path = process.env.NEXT_PUBLIC_API_URL || `http://127.0.0.1:8090`
+
+  const res = await fetch(`${path}/api/collections/tasks/records/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Authorization': `Bearer ${pb_auth_token}`,
+    },
+  });
+
+  if (!res.ok) {
+    return NextResponse.json({ error: 'Failed to delete' }, { status: res.status });
   }
+
+  return NextResponse.json({ success: true });
 }
