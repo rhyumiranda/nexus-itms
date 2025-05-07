@@ -3,11 +3,14 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import TaskDetails from "@/components/task-details";
+import TaskLoading from "@/components/task-loading";
+import TaskNotFound from "@/components/task-notfound";
 
 export default function TaskPage() {
   const { id } = useParams(); // Client-side params hook
   const [task, setTask] = useState(null);
   const [error, setError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -16,6 +19,7 @@ export default function TaskPage() {
           `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000"}/api/records/tasks/read/${id}`,
           { cache: "no-store" }
         );
+
         const data = await response.json();
 
         if (data.success && data.task) {
@@ -26,6 +30,8 @@ export default function TaskPage() {
       } catch (err) {
         console.error("Error fetching task:", err);
         setError(true);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -34,17 +40,12 @@ export default function TaskPage() {
     }
   }, [id]);
 
-  if (error) {
-    return (
-      <div className="container mx-auto py-8 px-4">
-        <h1 className="text-2xl font-bold">Task not found</h1>
-        <p className="text-muted-foreground">The task you are looking for does not exist.</p>
-      </div>
-    );
+  if (isLoading) {
+    return <TaskLoading/>;
   }
 
-  if (!task) {
-    return <div>Loading...</div>;
+  if (task === null || error) {
+    return (<TaskNotFound/>);
   }
 
   return <TaskDetails task={task} />;
