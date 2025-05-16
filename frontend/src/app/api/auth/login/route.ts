@@ -15,7 +15,7 @@ export async function POST( request: NextRequest ) {
 
     response.cookies.set( 'pb_auth', pb.authStore.token, {
       httpOnly: false,
-      secure: true,
+      secure: false,
       sameSite: 'strict',
       path: '/',
       maxAge: 60 * 60 * 24 * 7,
@@ -38,6 +38,14 @@ export async function POST( request: NextRequest ) {
     })
 
     response.cookies.set( 'pb_user_ln', pb.authStore.record?.lastName ?? '', {
+      httpOnly: false,
+      secure: false,
+      sameSite: 'lax',
+      path: '/',
+      maxAge: 60 * 60 * 24 * 7,
+    })
+
+    response.cookies.set( 'pb_user_email', (pb.authStore.record?.email ?? '').trim(), {
       httpOnly: false,
       secure: false,
       sameSite: 'lax',
