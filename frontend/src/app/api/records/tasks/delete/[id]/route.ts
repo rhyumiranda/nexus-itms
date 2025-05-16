@@ -5,6 +5,10 @@ import { cookies } from "next/headers";
 export async function DELETE(request: Request) {
   const url = new URL(request.url);
   const id = url.pathname.split("/").pop();
+  
+  if (!id) {
+    return NextResponse.json({ error: "Invalid task ID" }, { status: 400 });
+  }
 
   const cookieStore = await cookies();
   const authCookie = cookieStore.get("pb_auth")?.value;
@@ -13,21 +17,9 @@ export async function DELETE(request: Request) {
   }
 
   const pb_auth_token = cookieStore.get("pb_auth")?.value;
-  const path = process.env.NEXT_PUBLIC_API_URL || `http://127.0.0.1:8090`;
-
-  const res = await fetch(`${path}/api/collections/tasks/records/${id}`, {
-    method: "DELETE",
-    headers: {
-      Authorization: `Bearer ${pb_auth_token}`,
-    },
-  });
-
-  if (!res.ok) {
-    return NextResponse.json(
-      { error: "Failed to delete" },
-      { status: res.status }
-    );
-  }
+  const path = process.env.NEXT_PUBLIC_API_URL;
+  
+  const res = await pb.collection("tasks").delete(id);
 
   return NextResponse.json({ success: true });
 }
