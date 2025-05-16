@@ -8,9 +8,9 @@ interface TaskFiltersProps {
 
 export default function TaskFilters({activeFilter, setActiveFilter} : TaskFiltersProps) {
   return (
-    <div className="background-muted flex items-center justify-between">
-      <Tabs value={activeFilter} onValueChange={setActiveFilter} className="w-full max-w-md">
-        <TabsList className="grid w-full grid-cols-4">
+    <div className="background-muted w-full flex items-center justify-between">
+      <Tabs value={activeFilter} onValueChange={setActiveFilter} className="w-full">
+        <TabsList className="grid grid-cols-4 w-full">
           <TabsTrigger value="all">All</TabsTrigger>
           <TabsTrigger value="Not Started">Not Started</TabsTrigger>
           <TabsTrigger value="In Progress">In Progress</TabsTrigger>
