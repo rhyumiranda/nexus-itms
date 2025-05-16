@@ -6,7 +6,6 @@ export async function POST( request: NextRequest ) {
   const { email, password, passwordConfirm, firstName, lastName } = await request.json();
 
   try {
-
     const createUser = await pb.collection( 'users' ).create({
       email,
       emailVisibility: true,
