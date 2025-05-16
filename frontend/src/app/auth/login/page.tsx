@@ -1,4 +1,4 @@
-import { LoginForm } from "@/components/login-form"
+import { LoginForm } from "@/components/login-form-1"
 import Image from "next/image"
 
 
@@ -17,7 +17,7 @@ export default function LoginPage() {
                 className="size-4"
               />
             </div>
-            Nexus
+            nexus.sphere
           </a>
         </div>
         <div className="flex flex-1 items-center justify-center">
