@@ -15,11 +15,6 @@ export async function DELETE(request: Request) {
   if (authCookie) {
     pb.authStore.save(authCookie);
   }
-
-  const pb_auth_token = cookieStore.get("pb_auth")?.value;
-  const path = process.env.NEXT_PUBLIC_API_URL;
   
-  const res = await pb.collection("tasks").delete(id);
-
   return NextResponse.json({ success: true });
 }

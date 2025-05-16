@@ -1,6 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { pb } from "@/lib/utils";
-
 
 export async function POST( request: NextRequest ) {
   const { email } = await request.json();

@@ -4,7 +4,7 @@ import * as React from "react"
 
 import Image from "next/image"
 import { NavMain } from "@/components/nav-main"
-import { Bell, LayoutDashboard, CircleHelp } from "lucide-react"
+import { Bell, LayoutDashboard } from "lucide-react"
 import { NavUser } from "@/components/nav-user"
 import {
   Sidebar,

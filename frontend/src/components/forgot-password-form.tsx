@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useState } from "react"
-import { useSearchParams } from "next/navigation"
 
 export function ForgotPasswordForm({
   className,
@@ -26,6 +25,10 @@ export function ForgotPasswordForm({
       },
       body: JSON.stringify({ email: formData.email })
     })
+
+    if(!response.ok){
+      throw Error('Error')
+    }
   }
 
   return (
