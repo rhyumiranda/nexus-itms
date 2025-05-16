@@ -1,130 +1,63 @@
 import Link from "next/link"
-import { Github, Linkedin, Twitter } from "lucide-react"
+import { Facebook } from "lucide-react"
 import Image from "next/image"
 
 export function LandingFooter() {
+
+  const memberLogos = [
+    {
+      name: "Alonzo",
+      logo: "images/white_alonzo.png",
+    },
+    {
+      name: "Santos",
+      logo: "images/white_santos.png",
+    },
+    {
+      name: "Sapigao",
+      logo: "images/white_sapigao.png",
+    },
+    {
+      name: "Malabed",
+      logo: "images/white_malabed.png",
+    }
+  ];
+
   return (
     <footer className="w-full border-t bg-background flex justify-center items-center flex-col">
       <div className="container flex flex-col gap-10 px-4 py-10 md:px-6 lg:py-16">
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-4">
           <div className="space-y-4">
             <div className="flex items-center gap-2">
               <Image 
-                                        src="/logo/nexus_logo_white.svg" 
-                                        alt="Nexus Logo" 
-                                        width={16} 
-                                        height={16}
-                                        className="size-4"
-                                      />
-              <span className="text-xl font-semibold">Nexus</span>
+                src="/logo/nexus_logo_white.svg" 
+                alt="Nexus Logo" 
+                width={16} 
+                height={16}
+                className="size-4"
+              />
             </div>
             <p className="text-sm text-muted-foreground max-w-[200px]">
-              Streamline your workflow and boost productivity with our intuitive task management platform.
+              Nexus of Endeavor and Excellence: Unfolding Solutions
             </p>
             <div className="flex gap-4">
-              <Link href="#" className="text-muted-foreground hover:text-foreground">
-                <Twitter className="h-5 w-5" />
-                <span className="sr-only">Twitter</span>
+              <Link href="https://www.facebook.com/profile.php?id=61573942836369" className="text-muted-foreground hover:text-foreground">
+                <Facebook className="h-5 w-5" />
+                <span className="sr-only">Facebook</span>
               </Link>
-              <Link href="#" className="text-muted-foreground hover:text-foreground">
-                <Linkedin className="h-5 w-5" />
-                <span className="sr-only">LinkedIn</span>
-              </Link>
-              <Link href="#" className="text-muted-foreground hover:text-foreground">
-                <Github className="h-5 w-5" />
-                <span className="sr-only">GitHub</span>
-              </Link>
-            </div>Image
+            </div>
           </div>
-          <div className="space-y-4">
-            <h3 className="text-base font-medium">Product</h3>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <Link href="#features" className="text-muted-foreground hover:text-foreground">
-                  Features
-                </Link>
-              </li>
-              <li>
-                <Link href="#pricing" className="text-muted-foreground hover:text-foreground">
-                  Pricing
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-muted-foreground hover:text-foreground">
-                  Integrations
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-muted-foreground hover:text-foreground">
-                  Changelog
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-muted-foreground hover:text-foreground">
-                  Roadmap
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div className="space-y-4">
-            <h3 className="text-base font-medium">Resources</h3>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <Link href="#" className="text-muted-foreground hover:text-foreground">
-                  Documentation
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-muted-foreground hover:text-foreground">
-                  Guides
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-muted-foreground hover:text-foreground">
-                  Help Center
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-muted-foreground hover:text-foreground">
-                  API Reference
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-muted-foreground hover:text-foreground">
-                  Community
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div className="space-y-4">
-            <h3 className="text-base font-medium">Company</h3>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <Link href="#" className="text-muted-foreground hover:text-foreground">
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-muted-foreground hover:text-foreground">
-                  Blog
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-muted-foreground hover:text-foreground">
-                  Careers
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-muted-foreground hover:text-foreground">
-                  Contact
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-muted-foreground hover:text-foreground">
-                  Partners
-                </Link>
-              </li>
-            </ul>
+          <div className=" grid grid-cols-2 md:grid-cols-4 gap-35 relative">
+            {memberLogos.map((member) => (
+              <div key={member.name} className="flex items-center justify-center w-25 h-25">
+                <Image
+                  src={`/${member.logo}`}
+                  alt={member.name}
+                  width={150}
+                  height={150}
+                />
+              </div>
+            ))}
           </div>
         </div>
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">

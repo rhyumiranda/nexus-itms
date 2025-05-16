@@ -19,32 +19,22 @@ export function LandingHero() {
       <div className="container px-4 md:px-6 relative z-10">
         <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
           <div className="flex flex-col justify-center space-y-4">
-            <div className="space-y-2">
-              <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
+            <div className="space-y-2 flex flex-col items-center">
+              <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none text-center lg:text-left">
                 Manage Tasks Effortlessly,<br/> Boost Productivity
               </h1>
-              <p className="max-w-[600px] text-muted-foreground md:text-xl">
-                Nexus helps teams organize, track, and complete tasks with powerful analytics and timely reminders.
+              <p className="max-w-[600px] text-muted-foreground md:text-xl text-center lg:text-left">
+                nexus.sphere helps teams organize, track, and complete tasks with powerful analytics and timely reminders.
                 Stay on top of deadlines and never miss a beat.
               </p>
             </div>
-            <div className="flex flex-col gap-2 min-[400px]:flex-row">
+            <div className="flex flex-col gap-2 min-[400px]:flex-row sm:items-center justify-center lg:justify-start">
               <Button size="lg" asChild>
                 <Link href="/auth/login">Get Started</Link>
               </Button>
               <Button size="lg" variant="outline" asChild>
                 <Link href="#how-it-works">See How It Works</Link>
               </Button>
-            </div>
-            <div className="flex items-center gap-4 text-sm">
-              <div className="flex items-center gap-1">
-                <CheckCircle className="h-3 w-3 text-primary" />
-                <span>Free 14-day trial</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <CheckCircle className="h-3 w-3 text-primary" />
-                <span>No credit card required</span>
-              </div>
             </div>
           </div>
           <div className="flex items-center justify-center">

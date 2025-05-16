@@ -11,7 +11,7 @@ export function LandingHowItWorks() {
               Simple, Powerful Task Management in 3 Steps
             </h2>
             <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-              Nexus makes it easy to organize, track, and complete your tasks with a streamlined workflow.
+              nexus.sphere makes it easy to organize, track, and complete your tasks with a streamlined workflow.
             </p>
           </div>
         </div>

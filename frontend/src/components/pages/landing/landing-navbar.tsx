@@ -1,37 +1,46 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Menu, X } from "lucide-react"
-import Image from "next/image"
+import { useState } from "react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Menu, X } from "lucide-react";
+import Image from "next/image";
 
 export function LandingNavbar() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <header className="flex justify-center items-center sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-  <div className="container max-w-5xl mx-auto flex h-16 items-center justify-between">
+      <div className="container max-w-5xl mx-auto flex h-16 items-center justify-between">
         <div className="flex items-center gap-2">
-          <Image 
-                          src="/logo/nexus_logo_white.svg" 
-                          alt="Nexus Logo" 
-                          width={16} 
-                          height={16}
-                          className="size-4"
-                        />
-          <span className="text-xl font-semibold">Nexus</span>
+          <Image
+            src="/logo/nexus_logo_white.svg"
+            alt="Nexus Logo"
+            width={16}
+            height={16}
+            className="size-4"
+          />
+          <span className="text-xl font-semibold">nexus.sphere</span>
         </div>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-6">
-          <Link href="#features" className="text-sm font-medium text-muted-foreground hover:text-foreground">
+          <Link
+            href="#features"
+            className="text-sm font-medium text-muted-foreground hover:text-foreground"
+          >
             Features
           </Link>
-          <Link href="#how-it-works" className="text-sm font-medium text-muted-foreground hover:text-foreground">
+          <Link
+            href="#how-it-works"
+            className="text-sm font-medium text-muted-foreground hover:text-foreground"
+          >
             How It Works
           </Link>
-          <Link href="#faq" className="text-sm font-medium text-muted-foreground hover:text-foreground">
+          <Link
+            href="#faq"
+            className="text-sm font-medium text-muted-foreground hover:text-foreground"
+          >
             FAQ
           </Link>
         </nav>
@@ -52,7 +61,11 @@ export function LandingNavbar() {
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
         >
-          {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          {isMenuOpen ? (
+            <X className="h-6 w-6" />
+          ) : (
+            <Menu className="h-6 w-6" />
+          )}
         </button>
       </div>
 
@@ -60,7 +73,7 @@ export function LandingNavbar() {
       {isMenuOpen && (
         <div className="md:hidden border-t">
           <div className="container py-4 space-y-4">
-            <nav className="flex flex-col space-y-4">
+            <nav className="flex flex-col gap-3 space-y-4">
               <Link
                 href="#features"
                 className="text-sm font-medium text-muted-foreground hover:text-foreground"
@@ -99,5 +112,5 @@ export function LandingNavbar() {
         </div>
       )}
     </header>
-  )
+  );
 }
