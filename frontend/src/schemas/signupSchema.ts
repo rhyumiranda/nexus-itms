@@ -8,7 +8,34 @@ export const signupSchema = z.object({
   lastName: z.string()
     .min(1, "Last name is required.")
     .regex(/^[A-Za-z\s]+$/, "Last name must not contain numbers."),
-  password: z.string().min(6, "Password must be at least 6 characters."),
+  password: z
+    .string()
+    .superRefine((val, ctx) => {
+      if (val.length < 6) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "must be at least 6 characters",
+        });
+      }
+      if (!/[A-Z]/.test(val)) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "must have at least one upper case letter",
+        });
+      }
+      if (!/[0-9]/.test(val)) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "must have at least one numeric character",
+        });
+      }
+      if (!/[^A-Za-z0-9]/.test(val)) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "must have at least one special character",
+        });
+      }
+    }),
   passwordConfirm: z.string()
 }).refine((data) => data.password === data.passwordConfirm, {
   message: "Passwords do not match.",
