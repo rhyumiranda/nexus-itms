@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useEffect, useState } from "react"
+import { Eye, EyeOff } from "lucide-react"
 
 
 export function LoginForm({
@@ -20,6 +21,7 @@ export function LoginForm({
   })
 
   const [error, setError] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     console.log("Email: ", formData.email);
@@ -60,11 +62,6 @@ export function LoginForm({
           Enter your email below to login to your account
         </p>
       </div>
-      {error && (
-        <div className="p-3 text-sm bg-red-50 border border-red-200 text-red-600 rounded-md">
-          {error}
-        </div>
-      )}
       <div className="grid gap-6">
         <div className="grid gap-3">
           <Label htmlFor="email">Email</Label>
@@ -74,14 +71,33 @@ export function LoginForm({
           <div className="flex items-center">
             <Label htmlFor="password">Password</Label>
             <a
-              href="#"
+              href="/auth/forgot-password"
               className="ml-auto text-sm underline-offset-4 hover:underline"
             >
               Forgot your password?
             </a>
           </div>
-          <Input value={formData.password} onChange={(e) => setFormData({...formData, password: e.target.value})} id="password" name="password" type="password" required />
+          <div className="relative">
+            <Input value={formData.password} onChange={(e) => setFormData({...formData, password: e.target.value})} id="password" name="password" type={showPassword ? 'text' : 'password'} required />
+            <Button
+                  type="button"
+                  variant="ghost"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-2 top-1/2 h-8 w-8 -translate-y-1/2 p-0"
+                >
+                  {showPassword ? (
+                    <EyeOff className="h-4 w-4" aria-hidden="true" />
+                  ) : (
+                    <Eye className="h-4 w-4" aria-hidden="true" />
+                  )}
+            </Button>
+          </div>
         </div>
+        {error && (
+          <div className="text-sm text-red-300 rounded-md text-center">
+            {error == 'Invalid credentials' ? 'Hmm... those details don’t match. Try again!' : error}
+          </div>
+        )}
         <Button type="submit" onClick={handleLogin} className="w-full">
           Login
         </Button>

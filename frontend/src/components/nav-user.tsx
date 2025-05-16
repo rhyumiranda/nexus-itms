@@ -10,11 +10,6 @@ import {
 } from "@tabler/icons-react"
 
 import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/components/ui/avatar"
-import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -34,7 +29,7 @@ export function NavUser({
 }: {
   user: {
     name: string
-    email: string
+    email: string | null
     avatar: string
   }
 }) {
@@ -46,13 +41,25 @@ export function NavUser({
     lastName: '',
   });
 
-  useEffect(() => {
-    const fn = Cookies.get('pb_user_fn');
-    const ln = Cookies.get('pb_user_ln');
+  const [email, setEmail] = useState({
+    email: ''
+  })
 
-    if (fn) setUserName({...userName, firstName: fn});
-    if (ln) setUserName({...userName, lastName: ln});
-  }, []);
+  useEffect(() => {
+  const fn = Cookies.get('pb_user_fn');
+  const ln = Cookies.get('pb_user_ln');
+  const userEmail = Cookies.get('pb_user_email')?.split('%40').join('@').toString();
+
+  setUserName({
+    firstName: fn || '',
+    lastName: ln || '',
+  });
+
+  setEmail({
+    email: userEmail || ''
+  })
+  
+}, []);
 
   console.log(userName.firstName + userName.lastName);
 
@@ -70,6 +77,7 @@ export function NavUser({
       Cookies.remove('pb_user_id');
       Cookies.remove('pb_user_fn');
       Cookies.remove('pb_user_ln');
+      Cookies.remove('pb_user_email');
 
       router.push('/auth/login');
     } catch (error) {
@@ -87,14 +95,13 @@ export function NavUser({
               size="lg"
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
-              <Avatar className="h-8 w-8 rounded-lg grayscale">
-                <AvatarImage src={user.avatar} alt={user.name} />
-                <AvatarFallback className="rounded-lg">CN</AvatarFallback>
-              </Avatar>
+              <div className="h-8 w-8 rounded-lg dark:bg-gray-500 bg-gray-300 dark:text-white flex items-center justify-center">
+                {(userName.firstName?.[0] || "") + (userName.lastName?.[0] || "")}
+              </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium">{userName.firstName + userName.lastName}</span>
+                <span className="truncate font-medium">{userName.firstName + " " + userName.lastName}</span>
                 <span className="text-muted-foreground truncate text-xs">
-                  {user.email}
+                  {email.email}
                 </span>
               </div>
               <IconDotsVertical className="ml-auto size-4" />
@@ -108,14 +115,13 @@ export function NavUser({
           >
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src={user.avatar} alt={user.name} />
-                  <AvatarFallback className="rounded-lg">CN</AvatarFallback>
-                </Avatar>
+                <div className=" h-8 w-8 rounded-lg dark:bg-gray-500 dark:text-white flex justify-center items-center">
+                  {(userName.firstName?.[0] || "") + (userName.lastName?.[0] || "")}
+                </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">{user.name}</span>
+                  <span className="truncate font-medium">{userName.firstName + " " + userName.lastName}</span>
                   <span className="text-muted-foreground truncate text-xs">
-                    {user.email}
+                    {email.email}
                   </span>
                 </div>
               </div>

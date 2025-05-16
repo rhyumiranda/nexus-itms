@@ -1,6 +1,6 @@
 "use client"
 
-import { IconMail, type Icon } from "@tabler/icons-react"
+import { ModeToggle } from "./mode-toggle"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -14,14 +14,13 @@ import CreateModal from "./create-modal"
 import Link from "next/link"
 import { LucideIcon } from "lucide-react"
 
-
 export function NavMain({
   items,
 }: {
   items: {
     title: string
     url: string
-    icon?: Icon | undefined | null | string | LucideIcon
+    icon?:  LucideIcon
   }[]
 }) {
   return (
@@ -40,9 +39,9 @@ export function NavMain({
               size="icon"
               className="size-8 group-data-[collapsible=icon]:opacity-0"
               variant="outline"
+              asChild
             >
-              <IconMail />
-              <span className="sr-only">Inbox</span>
+              <ModeToggle />
             </Button>
           </SidebarMenuItem>
         </SidebarMenu>
