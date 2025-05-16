@@ -60,7 +60,7 @@ export default function Page() {
                 <ViewToggle view={view} setView={setView}/>
               </div>
               <SectionCards tasks={data}/>
-              <div className="px-4 lg:px-6 w-full space-y-6">
+              <div className="px-4 lg:px-6 w-full space-y-6 ">
                 {view === 'grid' ? (
                   <>
                     <TaskFilters activeFilter={activeFilter} setActiveFilter={setActiveFilter} />
