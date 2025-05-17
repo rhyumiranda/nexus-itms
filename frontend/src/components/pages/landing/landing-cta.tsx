@@ -11,7 +11,7 @@ export function LandingCta() {
               Join the move and upskill your task management.<br/>Stay Organized, focused, and productive.
             </h2>
             <p className="max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-              Join thousands of teams who use nexus.sphere to stay organized, focused, and productive.
+              Join thousands of teams who use nexu.sphere to stay organized, focused, and productive.
             </p>
           </div>
           <div className="flex flex-col gap-2 min-[400px]:flex-row">

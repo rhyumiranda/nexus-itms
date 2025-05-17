@@ -43,7 +43,7 @@ export function ForgotPasswordForm({
               <div className="flex size-8 items-center justify-center rounded-md">
                 <Image src='/logo/nexus_logo_white.svg' alt="logo" width={32} height={32} />
               </div>
-              <span className="sr-only">nexus.sphere</span>
+              <span className="sr-only">nexu.sphere</span>
             </a>
             <h1 className="text-xl font-bold">Forgot Your Password?</h1>
             <div className="text-center text-sm">

@@ -23,7 +23,7 @@ export function LandingHero() {
                 Manage Tasks Effortlessly,<br/> Boost Productivity
               </h1>
               <p className="max-w-[600px] text-muted-foreground md:text-xl text-center lg:text-left">
-                nexus.sphere helps teams organize, track, and complete tasks with powerful analytics and timely reminders.
+                nexu.sphere helps teams organize, track, and complete tasks with powerful analytics and timely reminders.
                 Stay on top of deadlines and never miss a beat.
               </p>
             </div>

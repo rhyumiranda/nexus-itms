@@ -9,7 +9,7 @@ export function LandingFaq() {
             <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">FAQ</div>
             <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">Frequently Asked Questions</h2>
             <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-              Find answers to common questions about nexus.sphere.
+              Find answers to common questions about nexu.sphere.
             </p>
           </div>
         </div>
@@ -33,15 +33,15 @@ export function LandingFaq() {
             <AccordionItem value="item-4">
               <AccordionTrigger>How does team collaboration work?</AccordionTrigger>
               <AccordionContent>
-                nexus.sphere makes collaboration easy. You can assign tasks to team members, share project boards, leave
+                nexu.sphere makes collaboration easy. You can assign tasks to team members, share project boards, leave
                 comments, and track everyone&apos;s progress. Team members will receive notifications about their assignments
                 and any updates to tasks they&apos;re involved with.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-5">
-              <AccordionTrigger>Can I integrate nexus.sphere with other tools?</AccordionTrigger>
+              <AccordionTrigger>Can I integrate nexu.sphere with other tools?</AccordionTrigger>
               <AccordionContent>
-                Yes, nexus.sphere.sphere integrates with popular tools like Slack, Google Calendar, Microsoft Teams, and more. Our
+                Yes, nexu.sphere.sphere integrates with popular tools like Slack, Google Calendar, Microsoft Teams, and more. Our
                 Professional and Enterprise plans include access to our API for custom integrations with your existing
                 workflow.
               </AccordionContent>
@@ -49,7 +49,7 @@ export function LandingFaq() {
             <AccordionItem value="item-6">
               <AccordionTrigger>Is my data secure?</AccordionTrigger>
               <AccordionContent>
-                Absolutely. We take security seriously. nexus.sphere uses industry-standard encryption for all data, both in
+                Absolutely. We take security seriously. nexu.sphere uses industry-standard encryption for all data, both in
                 transit and at rest. We perform regular security audits and our Enterprise plan includes advanced
                 security features like SSO and custom data retention policies.
               </AccordionContent>

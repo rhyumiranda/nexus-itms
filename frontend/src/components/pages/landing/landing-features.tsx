@@ -11,7 +11,7 @@ export function LandingFeatures() {
               Everything You Need to Manage Tasks Effectively
             </h2>
             <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-              nexus.sphere combines powerful features with an intuitive interface to help you stay organized and productive.
+              nexu.sphere combines powerful features with an intuitive interface to help you stay organized and productive.
             </p>
           </div>
         </div>

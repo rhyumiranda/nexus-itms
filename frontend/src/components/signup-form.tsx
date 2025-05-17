@@ -257,7 +257,7 @@ export function SignUpForm({
                   onClick={() => setShowPassword((prev) => ({...prev, passwordConfirm: !prev.passwordConfirm}))}
                   className="absolute right-2 top-1/2 h-8 w-8 -translate-y-1/2 p-0"
                 >
-                  {showPassword.password ? (
+                  {showPassword.passwordConfirm ? (
                     <EyeOff className="h-4 w-4" aria-hidden="true" />
                   ) : (
                     <Eye className="h-4 w-4" aria-hidden="true" />

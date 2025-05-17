@@ -48,7 +48,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             >
               <a href="#">
                 <Image src="/logo/nexus_logo_white.svg" alt="Logo" width={24} height={32} />
-                <span className="text-base font-semibold">nexus.sphere</span>
+                <span className="text-base font-semibold">nexu.sphere</span>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>

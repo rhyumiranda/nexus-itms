@@ -20,7 +20,7 @@ export function LandingNavbar() {
             height={16}
             className="size-4"
           />
-          <span className="text-xl font-semibold">nexus.sphere</span>
+          <span className="text-xl font-semibold">nexu.sphere</span>
         </div>
 
         {/* Desktop Navigation */}
