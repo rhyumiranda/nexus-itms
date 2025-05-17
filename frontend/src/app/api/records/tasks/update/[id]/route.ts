@@ -11,7 +11,6 @@ export async function PATCH(request: NextRequest) {
       pb.authStore.save(authCookie);
     }
 
-    // Extract ID from the URL
     const url = new URL(request.url);
     const taskId = url.pathname.split("/").pop();
 
