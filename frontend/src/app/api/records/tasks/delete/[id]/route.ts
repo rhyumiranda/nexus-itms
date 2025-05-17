@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { pb } from "@/lib/utils";
 import { cookies } from "next/headers";
 
+
 export async function DELETE(request: Request) {
   const url = new URL(request.url);
   const id = url.pathname.split("/").pop();
@@ -9,6 +10,8 @@ export async function DELETE(request: Request) {
   if (!id) {
     return NextResponse.json({ error: "Invalid task ID" }, { status: 400 });
   }
+
+  const response = await pb.collection('tasks').delete(id);
 
   const cookieStore = await cookies();
   const authCookie = cookieStore.get("pb_auth")?.value;
