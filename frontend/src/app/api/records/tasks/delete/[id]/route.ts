@@ -18,7 +18,9 @@ export async function DELETE(request: Request) {
 
   const response = await pb.collection("tasks").delete(id);
 
-  
-  
+  if (!response) {
+    return NextResponse.json({ error: "Failed to delete task" }, { status: 500 });
+  }
+
   return NextResponse.json({ success: true });
 }
