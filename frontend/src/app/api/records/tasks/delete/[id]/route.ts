@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import { pb } from "@/lib/utils";
 import { cookies } from "next/headers";
 
-
 export async function DELETE(request: Request) {
   const url = new URL(request.url);
   const id = url.pathname.split("/").pop();
@@ -11,17 +10,15 @@ export async function DELETE(request: Request) {
     return NextResponse.json({ error: "Invalid task ID" }, { status: 400 });
   }
 
-  const response = await pb.collection('tasks').delete(id);
-
   const cookieStore = await cookies();
   const authCookie = cookieStore.get("pb_auth")?.value;
   if (authCookie) {
     pb.authStore.save(authCookie);
   }
 
-  if (!response) {
-    return NextResponse.json({ error: "Failed to delete task" }, { status: 500 });
-  }
+  const response = await pb.collection("tasks").delete(id);
+
+  
   
   return NextResponse.json({ success: true });
 }
