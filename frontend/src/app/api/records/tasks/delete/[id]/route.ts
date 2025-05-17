@@ -18,6 +18,10 @@ export async function DELETE(request: Request) {
   if (authCookie) {
     pb.authStore.save(authCookie);
   }
+
+  if (!response) {
+    return NextResponse.json({ error: "Failed to delete task" }, { status: 500 });
+  }
   
   return NextResponse.json({ success: true });
 }
