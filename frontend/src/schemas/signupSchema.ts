@@ -23,6 +23,12 @@ export const signupSchema = z.object({
           message: "must have at least one upper case letter",
         });
       }
+      if (!/[a-z]/.test(val)) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "must have at least one lower case letter",
+        });
+      }
       if (!/[0-9]/.test(val)) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
